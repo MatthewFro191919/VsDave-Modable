@@ -558,9 +558,9 @@ class PlayState extends MusicBeatState
 
 		adminMode = FlxG.save.data.adminMode;
 
-		oppM = FlxG.save.data.oppM && SONG.song.toLowerCase() != 'shredder' && !isStoryMode;
+		oppM = FlxG.save.data.oppM && SONG.song.toLowerCase() != 'shredder';
 
-		bothS = FlxG.save.data.bothSides && SONG.song.toLowerCase() != 'shredder' && !isStoryMode;
+		bothS = FlxG.save.data.bothSides && SONG.song.toLowerCase() != 'shredder';
 
 		isHighscore = false;
 
@@ -619,6 +619,7 @@ class PlayState extends MusicBeatState
 
 			if (bothS) {
 				mania = 4; 
+				camZooming = true;
 			}
 
 		if (mania == 1) {
@@ -923,6 +924,8 @@ class PlayState extends MusicBeatState
 		if(SONG.gf != null)
 		{
 			gfVersion = SONG.gf;
+		} else {
+			gfVersion = 'gf';
 		}
 		if (formoverride == "bf-pixel")
 		{
@@ -3147,6 +3150,7 @@ class PlayState extends MusicBeatState
 						daNoteData = FlxG.random.int(0, 3);
 				}
 
+		
 				if (bothS)
 					{
 						if (!gottaHitNote)
@@ -3154,29 +3158,29 @@ class PlayState extends MusicBeatState
 							switch(daNoteData)
 							{
 								case 0: 
-									//trace('0');
+								//trace('opp 0');
 								daNoteData = 5;
 							case 1: 
-							//	trace('1');
+								//trace('opp 1');
 								daNoteData = 6;
 							case 2: 
-							//	trace('2');
+								//trace('opp 2');
 								daNoteData = 7;
 							case 3:
-							//	trace('3');
+								//trace('opp 3');
 								daNoteData = 12;
 							case 4: 
-							//	trace('4');
+								//trace('opp 4');
 								daNoteData = 0;
 							case 5: 
-								//trace('5');
+								//trace('opp 5');
 								daNoteData = 1;
 							case 6: 
-								//trace('6');
+								//trace('opp 6');
 								daNoteData = 2;
 							case 7:
-								//trace('7');
-								daNoteData = 4;
+							//	trace('opp 7');
+								daNoteData = 3;
 							}
 						}
 						else
@@ -3184,21 +3188,29 @@ class PlayState extends MusicBeatState
 								switch(daNoteData)
 								{
 									case 0: 
+										//trace('bf 0');
 										daNoteData = 0;
 									case 1: 
+										//trace('bf 1');
 										daNoteData = 1;
 									case 2: 
+										//trace('bf 2');
 										daNoteData = 2;
 									case 3:
+										//trace('bf 3');
 										daNoteData = 3;
 									case 4: 
-										daNoteData = 4;
-									case 5: 
+										//trace('bf 4');
 										daNoteData = 5;
-									case 6: 
+									case 5: 
+										//trace('bf 5');
 										daNoteData = 6;
-									case 7:
+									case 6: 
+										//trace('bf 6');
 										daNoteData = 7;
+									case 7:
+										//trace('bf 7');
+										daNoteData = 12;
 								}
 							}
 						if (daNoteData > 7) 
@@ -3356,7 +3368,6 @@ class PlayState extends MusicBeatState
 			babyArrow.x += 78;
 			babyArrow.baseX = babyArrow.x;
 			dadStrums.add(babyArrow);
-			strumLineNotes.add(babyArrow);
 		}
 	}
 	function regenerateStaticArrows(player:Int, fadeIn = true)
@@ -5426,6 +5437,12 @@ class PlayState extends MusicBeatState
 
 		if (SONG.windowName != null && SONG.windowName != "") {
 			Application.current.window.title = Main.applicationName;
+		}
+
+		if (SONG.exploitationEffect = true) {
+			FlxG.save.data.exploitationState = '';
+				Application.current.window.title = Main.applicationName;
+				Main.toggleFuckedFPS(false);
 		}
 
 		
@@ -8999,6 +9016,7 @@ if (oppM) {
 			var chosenFont = fonts[FlxG.random.int(0, fonts.length)];
 			kadeEngineWatermark.font = Paths.font('exploit/${chosenFont}.ttf');
 			kadeEngineWatermark2.font = Paths.font('exploit/${chosenFont}.ttf');
+			if (creditsWatermark != null)
 			creditsWatermark.font = Paths.font('exploit/${chosenFont}.ttf');
 			scoreTxt.font = Paths.font('exploit/${chosenFont}.ttf');
 			botplayTxt.font = Paths.font('exploit/${chosenFont}.ttf');

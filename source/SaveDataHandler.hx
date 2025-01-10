@@ -174,5 +174,12 @@ class SaveDataHandler
 
 			if (FlxG.save.data.darkModeWindow == null)
 				FlxG.save.data.darkModeWindow = true;
+
+			if (FlxG.save.data.showConsole == null)
+				#if debug
+				FlxG.save.data.showConsole = true;
+				#else
+				FlxG.save.data.showConsole = false;
+				#end
     }
 }

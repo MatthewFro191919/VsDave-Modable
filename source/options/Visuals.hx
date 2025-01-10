@@ -217,10 +217,12 @@ class Visuals extends MusicBeatState
 							case 17:
 								FlxG.save.data.darkModeWindow = !FlxG.save.data.darkModeWindow;
 								updateGroupControls(FlxG.save.data.darkModeWindow ? 'Window Bar Dark Mode ON' : 'Window Bar Dark Mode OFF', 12, 'Vertical');
+								#if windows
 								if (FlxG.save.data.darkModeWindow)
 									CPPInterface.darkMode();
 								else 
 									CPPInterface.lightMode();
+								#end
 			}
 		}
 	}

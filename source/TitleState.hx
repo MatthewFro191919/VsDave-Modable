@@ -130,6 +130,7 @@ class TitleState extends MusicBeatState
 		
 
 		awaitingExploitation = FlxG.save.data.exploitationState == 'awaiting';
+		
 
 
 		#if windows
@@ -144,7 +145,6 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		FlxG.switchState(new ChartingState());
 		#else
-
 
 		if (FlxG.save.data.Mod == null)
 			FlxG.save.data.Mod = 'test'; // DON'T REMOVE ALL MOD FOLDERS OR CRASH i think

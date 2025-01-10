@@ -78,6 +78,10 @@ class ChartingState extends MusicBeatState
 	var UI_healthDrain:FlxUIInputText;
 	var UI_healthBarBG:FlxUIInputText;
 
+	var UI_curStep:FlxUIInputText;
+	var UI_curBeat:FlxUIInputText;
+	var UI_eventInput:FlxUIInputText;
+
 	var GRID_SIZE:Int = 40;
 
 	var dummyArrow:FlxSprite;
@@ -90,7 +94,8 @@ class ChartingState extends MusicBeatState
 	var _song:SwagSong;
 
 	var typingShit:FlxInputText;
-	var whosTypingShit:String;
+	var curEvent:String = '0';
+	var curEventName:String = '';
 	/*
 	 * WILL BE THE CURRENT / LAST PLACED NOTE
 	**/
@@ -163,7 +168,8 @@ class ChartingState extends MusicBeatState
 				healthDrain: "",
 				healthBarBG: "",
 				exploitationEffect: false,
-				recursedEffect: false
+				recursedEffect: false,
+				events: []
 			};
 		}
 
@@ -226,7 +232,8 @@ class ChartingState extends MusicBeatState
 			{name: "Section", label: 'Section Data'},
 			{name: "Note", label: 'Note Data'},
 			{name: "Assets", label: 'Assets'},
-			{name: "Settings", label: 'Settings'}
+			{name: "Settings", label: 'Settings'},
+			{name: "Events", label: 'Events'}
 		];
 
 		UI_box = new FlxUITabMenu(null, tabs, true);
@@ -458,6 +465,38 @@ cStage = CoolUtil.coolTextFile(Paths.txt('stageList'));
 		var healthDrainTxt = new FlxText(windowNameTxt.x + 80,UI_songCreators.y + 20,'healthDrain');
 		var healthBarBGTxt = new FlxText(5,hasNoGf.y + 20,'healthBarBG');
 
+		/*var nEvents:Array<String> = [];
+		for (i in 0..._song.events.length)
+           nEvents.insert(nEvents.length + 1,i.toString());
+		}
+	
+		var events:Array<String> = ['test 1', 'test 2'];
+
+		var nEventsDropDown = new FlxUIDropDownMenu(10, 10, FlxUIDropDownMenu.makeStrIdLabelArray(nEvents, true), function(nevent:String)
+			{
+				curEvent = nEvents[Std.parseInt(nevent)];
+			});
+			nEventsDropDown.selectedLabel = '0'; */
+
+			/*var eventsDropDown = new FlxUIDropDownMenu(150, 10, FlxUIDropDownMenu.makeStrIdLabelArray(events, true), function(event:String)
+				{
+					curEventName = events[Std.parseInt(event)];
+				});
+				eventsDropDown.selectedLabel = ''; */
+
+		UI_curBeat = new FlxUIInputText(110,100, 70, 'tem0', 8);
+		typingShit = UI_curBeat;
+
+		UI_curStep = new FlxUIInputText(110,200, 70, 'tem1', 8);
+		typingShit = UI_curStep;
+
+		UI_eventInput = new FlxUIInputText(170,280, 70, 'wow', 8);
+		typingShit = UI_eventInput;
+
+		var uiCurBeatTxt = new FlxText(110, UI_curBeat.y - 20,'curBeat');
+		var uiCurStepTxt = new FlxText(110, UI_curStep.y - 20,'curStep');
+		var uiEventInputTxt = new FlxText(170, UI_eventInput.y - 20,'Event Input');
+
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
 		tab_group_song.add(UI_songTitle);
@@ -518,9 +557,22 @@ cStage = CoolUtil.coolTextFile(Paths.txt('stageList'));
 		tab_group_settings.add(healthDrainTxt);
 		tab_group_settings.add(healthBarBGTxt);
 
+		var tab_group_events = new FlxUI(null, UI_box);
+		tab_group_events.name = "Events";
+		
+
 		UI_box.addGroup(tab_group_song);
 		UI_box.addGroup(tab_group_assets);
 		UI_box.addGroup(tab_group_settings);
+		UI_box.addGroup(tab_group_events);
+		//tab_group_events.add(nEventsDropDown);
+		//tab_group_events.add(eventsDropDown);
+		tab_group_events.add(UI_curBeat);
+		tab_group_events.add(UI_curStep);
+		tab_group_events.add(UI_eventInput);
+		tab_group_events.add(uiCurBeatTxt);
+		tab_group_events.add(uiCurStepTxt);
+		tab_group_events.add(uiEventInputTxt);
 		UI_box.scrollFactor.set();
 
 		FlxG.camera.follow(strumLine);
@@ -637,7 +689,16 @@ cStage = CoolUtil.coolTextFile(Paths.txt('stageList'));
 			// vocals.stop();
 		}
 
+		if (FileSystem.exists(Paths.instPath(PlayState.SONG.song))) {
 		FlxG.sound.playMusic(Paths.inst(daSong), 0.6);
+	} else {
+		PlatformUtil.sendFakeMsgBox("NO INST AT " + Paths.instPath(PlayState.SONG.song));
+		if (PlayState.isStoryMode) {
+		FlxG.switchState(new StoryMenuState());
+		} else {
+		FlxG.switchState(new FreeplayState());
+		}
+	}
 
 		// WONT WORK FOR TUTORIAL OR TEST SONG!!! REDO LATER
 		if (FileSystem.exists(Paths.voicesPath(daSong, shagVoice ? "Shaggy" : ""))) {
