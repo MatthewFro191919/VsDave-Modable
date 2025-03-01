@@ -42,6 +42,7 @@
         "blue": 0
     },
     "antialiasing": false,
+    "iconImage": "",
     "iconAntialiasing": false,
     "nativelyPlayable": true,
     "flipX": true,

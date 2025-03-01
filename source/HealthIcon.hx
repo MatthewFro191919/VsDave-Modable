@@ -22,6 +22,9 @@ class HealthIcon extends FlxSprite
 		'nofriend',
 		'dave-festival-3d'
 	];
+
+	public static var customIconImage:Array<String> = [];
+	public static var customIconName:String;
 	var char:String;
 	var state:String;
 	public var isPlayer:Bool;
@@ -40,7 +43,9 @@ class HealthIcon extends FlxSprite
 		if (this.char != char)
 		{
 			var file:Dynamic = '';
-
+                   if (customIconImage.contains(char)) {
+                       char = customIconName;
+				   }
 			if (char != "none") {
 				if (FileSystem.exists('assets/images/ui/iconGrid/' + char + '.png')) {
                 if (FileSystem.exists(TitleState.modFolder + '/assets/images/ui/iconGrid/' + char + '.png')) {

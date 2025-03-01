@@ -1211,6 +1211,7 @@ class FreeplayState extends MusicBeatState
 
 	function recursedUnlock()
 	{
+		isaCustomSong = false;
 		canInteract = false;
 
 		FlxG.sound.music.stop();

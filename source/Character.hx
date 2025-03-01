@@ -22,12 +22,13 @@ typedef CharacterFile =
 	var skins:Array<SkinSet>;
 	var barcolor:RGB;
     var	antialiasing:Bool;
+	@:optional var iconImage:String;
 	var	iconAntialiasing:Bool;
 	var nativelyPlayable:Bool;
 	var flipX:Bool;
 	var updateHitbox:Bool;
 	var setGraphicSize:String;
-	var effect:String;
+	@:optional var effect:String;
 	var cameraPosition:Array<Float>;
 }
 
@@ -1314,6 +1315,15 @@ class Character extends FlxSprite
 
 				antialiasing = jsonCustom.antialiasing ? FlxG.save.data.antialiasing : jsonCustom.antialiasing;
 
+				if (jsonCustom.iconImage != '' && jsonCustom.iconImage != null) {
+					HealthIcon.customIconImage.push(curCharacter);
+					HealthIcon.customIconName = jsonCustom.iconImage;
+				} else {
+					if (HealthIcon.customIconImage.contains(curCharacter)) {
+						HealthIcon.customIconImage.remove(curCharacter);	
+					}
+				}
+
 				if (!jsonCustom.iconAntialiasing) {
 				HealthIcon.noAaChars.push(curCharacter);
 				} else {
@@ -1322,7 +1332,6 @@ class Character extends FlxSprite
 				}
 				}
 
-				
 
 				flipX = jsonCustom.flipX;
 				
