@@ -213,7 +213,7 @@ class BaseGameDeleter extends FlxState
 					}
 				}
 				
-		var versionShit:FlxText = new FlxText(300, 0, 0, 'CLOSING BOOT UP ENGINE AFTER', 12);
+		var versionShit:FlxText = new FlxText(300, 0, 0, 'CLOSING... BOOT UP ENGINE AFTER!', 12);
 		versionShit.antialiasing = FlxG.save.data.antialiasing;
 		versionShit.scrollFactor.set();
 		versionShit.screenCenter();

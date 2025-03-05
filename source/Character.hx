@@ -22,13 +22,15 @@ typedef CharacterFile =
 	var skins:Array<SkinSet>;
 	var barcolor:RGB;
     var	antialiasing:Bool;
-	@:optional var iconImage:String;
+	var characterImage:String;
+    var iconImage:String;
 	var	iconAntialiasing:Bool;
 	var nativelyPlayable:Bool;
 	var flipX:Bool;
 	var updateHitbox:Bool;
 	var setGraphicSize:String;
-	@:optional var effect:String;
+	var effect:String;
+	var danceType:String;
 	var cameraPosition:Array<Float>;
 }
 
@@ -79,6 +81,7 @@ class Character extends FlxSprite
 	public var skins:Map<String, String> = new Map<String, String>();
 	public var rawJsonCustom:String;
     public var jsonCustom:CharacterFile;
+	public var typeOfDance:String = '';
 
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false)
 	{
@@ -1222,23 +1225,21 @@ class Character extends FlxSprite
 				rawJsonCustom = File.getContent(customPath);
 			    jsonCustom = cast Json.parse(rawJsonCustom);
 
+				if (jsonCustom.characterImage == '') {
 				frames = Paths.getCustomSparrowAtlas(customPath2);
+				} else {
+				frames = Paths.getCustomSparrowAtlas(jsonCustom.characterImage);
+				}
 
 				isCustom = true;
-
-				//trace('BEFORE BEFORE json: ${jsonCustom.cameraPosition} camPos: ${cameraPos}');
 
 				if (jsonCustom.cameraPosition != null) {
 				cameraPos = jsonCustom.cameraPosition;
 				}
-
-				//trace('BEFORE json: ${jsonCustom.cameraPosition} camPos: ${cameraPos}');
 				
 				if (cameraPos == null) {
           cameraPos = [0,0];
 				}
-
-				//trace('AFTER json: ${jsonCustom.cameraPosition} camPos: ${cameraPos}');
 
 				for (i in jsonCustom.animations) {
 				animation.addByPrefix(i.animName, i.anim, i.fps, i.loop);
@@ -1305,6 +1306,14 @@ class Character extends FlxSprite
 									}
 						}
  					}
+					 if (jsonCustom.danceType != null && jsonCustom.danceType != '') 
+						{
+							if (jsonCustom.danceType == 'gf') {
+								typeOfDance = 'gf';
+							} else if (jsonCustom.danceType == 'shaggy') {
+								typeOfDance = 'shaggy';
+							}
+						}
 
 				if (jsonCustom.updateHitbox)
 					{
@@ -1330,15 +1339,18 @@ class Character extends FlxSprite
 				if (HealthIcon.noAaChars.contains(curCharacter)) {
 					HealthIcon.noAaChars.remove(curCharacter);	
 				}
-				}
+			}
 
 
 				flipX = jsonCustom.flipX;
-				
+				if (typeOfDance == 'gf' || typeOfDance == 'shaggy') {
+				playAnim('danceRight');
+				} else {
 				playAnim('idle');
+				}
 					
 
-					} else {
+				} else {
 
 				frames = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
 				
@@ -1470,6 +1482,12 @@ class Character extends FlxSprite
 			case 'gf':
 				if (animation.curAnim.name == 'hairFall' && animation.curAnim.finished)
 					playAnim('danceRight');
+			default:
+				if (typeOfDance == 'gf') {
+
+					if (animation.curAnim.name == 'hairFall' && animation.curAnim.finished)
+						playAnim('danceRight');
+				}
 		}
 
 		super.update(elapsed);
@@ -1498,7 +1516,19 @@ class Character extends FlxSprite
 							playAnim('danceLeft', true);
 					}
 				default:
+					if (typeOfDance == 'gf' || typeOfDance == 'shaggy') {
+						if (!animation.curAnim.name.startsWith('hair'))
+							{
+								danced = !danced;
+		
+								if (danced)
+									playAnim('danceRight', true);
+								else
+									playAnim('danceLeft', true);
+							}
+					} else {
 					playAnim('idle', true);
+					}
 			}
 		}
 	}

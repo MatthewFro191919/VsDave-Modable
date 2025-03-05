@@ -42,6 +42,19 @@ import openfl.utils.ByteArray;
 
 using StringTools;
 
+typedef Events =
+{
+var event:String;
+var curStep:Int;
+var curBeat:Int;
+var vaules:Array<Vaules>;
+}
+
+typedef Vaules =
+{
+var vaule:Dynamic;
+}
+
 class ChartingState extends MusicBeatState
 {
 	var _file:FileReference;
@@ -168,8 +181,7 @@ class ChartingState extends MusicBeatState
 				healthDrain: "",
 				healthBarBG: "",
 				exploitationEffect: false,
-				recursedEffect: false,
-				events: []
+				recursedEffect: false
 			};
 		}
 
@@ -367,23 +379,29 @@ class ChartingState extends MusicBeatState
 			shiftNotes(Std.int(stepperShiftNoteDial.value),Std.int(stepperShiftNoteDialstep.value),Std.int(stepperShiftNoteDialms.value));
 		});
 
-		c = CoolUtil.coolTextFile(Paths.txt('characterList'));
+		 c = CoolUtil.coolTextFile(Paths.txt('characterList'));
 
-         if (FileSystem.exists(TitleState.modFolder + '/data/customCharacterList.txt')) {
-         cm = CoolUtil.coolTextFile(TitleState.modFolder + '/data/customCharacterList.txt');
-         } else {
-        cm = [''];
-        }
+         cm = [];
+		 if(FileSystem.exists(TitleState.modFolder + '/data/characters')) {
+		 for (file in FileSystem.readDirectory(TitleState.modFolder + '/data/characters') ){
+			if (StringTools.endsWith(file, ".json")) {
+			cm.push(StringTools.replace(file, '.json', ''));
+			}
+		}
+	}
 
 var characters:Array<String> = c.concat(cm);
 
 cStage = CoolUtil.coolTextFile(Paths.txt('stageList'));
 
-         if (FileSystem.exists(TitleState.modFolder + '/data/customStageList.txt')) {
-         cmStage = CoolUtil.coolTextFile(TitleState.modFolder + '/data/customStageList.txt');
-         } else {
-        cmStage = [''];
-        }
+        cmStage = [];
+		if(FileSystem.exists(TitleState.modFolder + '/data/stages')) {
+		for (file in FileSystem.readDirectory(TitleState.modFolder + '/data/stages')){
+			if (StringTools.endsWith(file, ".json")) {
+				cmStage.push(StringTools.replace(file, '.json', ''));
+			}
+		}
+	}
 
 		var stages:Array<String> = cStage.concat(cmStage);
 
@@ -464,25 +482,6 @@ cStage = CoolUtil.coolTextFile(Paths.txt('stageList'));
 		var windowNameTxt = new FlxText(introTxt.x + 80,UI_songCreators.y + 20,'windowName');
 		var healthDrainTxt = new FlxText(windowNameTxt.x + 80,UI_songCreators.y + 20,'healthDrain');
 		var healthBarBGTxt = new FlxText(5,hasNoGf.y + 20,'healthBarBG');
-
-		/*var nEvents:Array<String> = [];
-		for (i in 0..._song.events.length)
-           nEvents.insert(nEvents.length + 1,i.toString());
-		}
-	
-		var events:Array<String> = ['test 1', 'test 2'];
-
-		var nEventsDropDown = new FlxUIDropDownMenu(10, 10, FlxUIDropDownMenu.makeStrIdLabelArray(nEvents, true), function(nevent:String)
-			{
-				curEvent = nEvents[Std.parseInt(nevent)];
-			});
-			nEventsDropDown.selectedLabel = '0'; */
-
-			/*var eventsDropDown = new FlxUIDropDownMenu(150, 10, FlxUIDropDownMenu.makeStrIdLabelArray(events, true), function(event:String)
-				{
-					curEventName = events[Std.parseInt(event)];
-				});
-				eventsDropDown.selectedLabel = ''; */
 
 		UI_curBeat = new FlxUIInputText(110,100, 70, 'tem0', 8);
 		typingShit = UI_curBeat;

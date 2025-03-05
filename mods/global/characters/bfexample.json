@@ -101,17 +101,30 @@
     ],
     "globalOffset": [0, 0],
     "isPlayable": false,
-    "skins": [],
+    "skins": [
+        {
+        "type": "recursed",
+        "replacement": "bf-recursed"
+        },
+        {
+        "type": "gfSkin",
+        "replacement": "gf"  
+        }
+    ],
     "barcolor": {
         "red": 49,
         "green": 176,
         "blue": 209
     },
     "antialiasing": true,
+    "characterImage": "",
+    "iconImage": "",
     "iconAntialiasing": true,
     "nativelyPlayable": true,
     "flipX": true,
     "updateHitbox": false,
     "setGraphicSize": "",
-    "effect": ""
+    "effect": "",
+    "danceType": "",
+    "cameraPosition": [0,0]
 }

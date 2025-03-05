@@ -44,21 +44,6 @@ typedef SwagSong =
 	var healthBarBG:String;
     var exploitationEffect:Bool;
 	var recursedEffect:Bool;
-
-	var events:Array<Events>;
-}
-
-typedef Events =
-{
-var event:String;
-var curStep:Int;
-var curBeat:Int;
-var vaules:Array<Vaules>;
-}
-
-typedef Vaules =
-{
-var vaule:Dynamic;
 }
 
 class Song

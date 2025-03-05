@@ -42,13 +42,14 @@
         "blue": 0
     },
     "antialiasing": false,
+    "characterImage": "",
     "iconImage": "",
     "iconAntialiasing": false,
     "nativelyPlayable": true,
     "flipX": true,
     "updateHitbox": true,
     "setGraphicSize": "",
-    "effect": "3dfloat",
-    "danceType": "",
-    "cameraPosition": [0,100]
+    "effect": "",
+    "danceType": "gf",
+    "cameraPosition": [0,0]
 }

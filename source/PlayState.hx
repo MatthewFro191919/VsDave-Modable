@@ -16,7 +16,6 @@ import openfl.display.Graphics;
 import flixel.group.FlxSpriteGroup;
 import lime.tools.ApplicationData;
 import flixel.effects.particles.FlxParticle;
-import hscript.*;
 import openfl.desktop.Clipboard;
 import flixel.system.debug.Window;
 #if desktop

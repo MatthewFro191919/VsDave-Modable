@@ -34,7 +34,7 @@ class Boyfriend extends Character
 				playAnim('idle', true, false, 10);
 			}
 
-			if (curBf == 'shaggy-lose' || curBf == 'redshaggy-lose') {
+			if (curBf == 'shaggy-lose' || curBf == 'redshaggy-lose' || typeOfDance == 'shaggy') {
 				if ((animation.curAnim.name == 'firstDeath' || animation.curAnim.name == 'deathLoopRight' || animation.curAnim.name == 'deathLoopLeft') && animation.curAnim.finished)
 				{
 					danceLose();
