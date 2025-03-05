@@ -117,8 +117,9 @@
         "blue": 209
     },
     "antialiasing": true,
-    "characterImage": "",
-    "iconImage": "",
+    "characterImage": "assets/shared/images/characters/BOYFRIEND",
+    "iconImage": "bf",
+    "offsetFilePath": "assets/offsets/bf",
     "iconAntialiasing": true,
     "nativelyPlayable": true,
     "flipX": true,
