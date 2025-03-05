@@ -24,6 +24,7 @@ typedef CharacterFile =
     var	antialiasing:Bool;
 	var characterImage:String;
     var iconImage:String;
+	var offsetFilePath:String;
 	var	iconAntialiasing:Bool;
 	var nativelyPlayable:Bool;
 	var flipX:Bool;
@@ -1225,10 +1226,12 @@ class Character extends FlxSprite
 				rawJsonCustom = File.getContent(customPath);
 			    jsonCustom = cast Json.parse(rawJsonCustom);
 
-				if (jsonCustom.characterImage == '') {
+				if (jsonCustom.characterImage != null && jsonCustom.characterImage == '') {
 				frames = Paths.getCustomSparrowAtlas(customPath2);
-				} else {
+				} else if (FileSystem.exists(jsonCustom.characterImage + '.png') && FileSystem.exists(jsonCustom.characterImage + '.xml')) {
 				frames = Paths.getCustomSparrowAtlas(jsonCustom.characterImage);
+				} else {
+				frames = Paths.getSparrowAtlas('blank', 'shared');
 				}
 
 				isCustom = true;
@@ -1324,7 +1327,7 @@ class Character extends FlxSprite
 
 				antialiasing = jsonCustom.antialiasing ? FlxG.save.data.antialiasing : jsonCustom.antialiasing;
 
-				if (jsonCustom.iconImage != '' && jsonCustom.iconImage != null) {
+				if (jsonCustom.iconImage != null && jsonCustom.iconImage != '') {
 					HealthIcon.customIconImage.push(curCharacter);
 					HealthIcon.customIconName = jsonCustom.iconImage;
 				} else {
@@ -1416,11 +1419,21 @@ class Character extends FlxSprite
 		{
 			var offsetStuffs:Array<String>;
 
+           if (jsonCustom.offsetFilePath == '') {
 			if (FileSystem.exists(TitleState.modFolder + '/offsets/' + character + '.txt')) {
 				offsetStuffs = CoolUtil.coolTextFile(TitleState.modFolder + '/offsets/' + character + '.txt');
+				} else if (FileSystem.exists('mods/global/offsets/' + character + '.txt')) {
+				offsetStuffs = CoolUtil.coolTextFile('mods/global/offsets/' + character + '.txt'); 
 				} else {
 				offsetStuffs = CoolUtil.coolTextFile(Paths.offsetFile('bf'));
 				}
+			} else {
+				if (FileSystem.exists(jsonCustom.offsetFilePath + '.txt')) {
+					offsetStuffs = CoolUtil.coolTextFile(jsonCustom.offsetFilePath + '.txt');
+					} else {
+					offsetStuffs = CoolUtil.coolTextFile(Paths.offsetFile('bf'));
+					}
+			}
 			
 			for (offsetText in offsetStuffs)
 			{
@@ -1430,23 +1443,6 @@ class Character extends FlxSprite
 			}
 		}
 
-		function loadSkinOffsetFile(character:String)
-			{
-				var offsetStuffs:Array<String>;
-
-				if (FileSystem.exists('mods/global/offsets/' + character + '.txt')) {
-					offsetStuffs = CoolUtil.coolTextFile('mods/global/offsets/' + character + '.txt');
-					} else {
-					offsetStuffs = CoolUtil.coolTextFile(Paths.offsetFile('bf'));
-					}
-				
-				for (offsetText in offsetStuffs)
-				{
-					var offsetInfo:Array<String> = offsetText.split(' ');
-		
-					addOffset(offsetInfo[0], Std.parseFloat(offsetInfo[1]), Std.parseFloat(offsetInfo[2]));
-				}
-			}
 	override function update(elapsed:Float)
 	{
 		if (animation == null)

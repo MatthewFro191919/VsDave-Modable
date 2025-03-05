@@ -10,6 +10,7 @@ haxelib install flixel-addons 2.11.0
 haxelib install flixel-tools
 haxelib install flixel-ui 2.6.1
 haxelib install actuate 1.9.0 
+haxelib install hscript
 haxelib install hxCodec 2.5.1          
 haxelib install linc_luajit
 haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc

@@ -42,7 +42,9 @@
         "blue": 0
     },
     "antialiasing": false,
+    "characterImage": "",
     "iconImage": "",
+    "offsetFilePath": "",
     "iconAntialiasing": false,
     "nativelyPlayable": true,
     "flipX": true,
