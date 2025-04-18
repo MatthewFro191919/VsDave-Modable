@@ -1211,6 +1211,20 @@ class Character extends FlxSprite
 				loadOffsetFile(curCharacter);
 				playAnim('firstDeath');
 
+			case 'lucario':
+				frames = Paths.getSparrowAtlas('lucario/lucario', 'shared');
+				animation.addByPrefix('idle', 'idle', 24, false);
+				animation.addByPrefix('singUP', 'up', 24, false);
+				animation.addByPrefix('singLEFT', 'right', 24, false);
+				animation.addByPrefix('singRIGHT', 'left', 24, false);
+				animation.addByPrefix('singDOWN', 'down', 24, false);
+				
+				barColor = FlxColor.fromRGB(0, 90, 223);
+
+				loadOffsetFile(curCharacter + (isPlayer ? '-playable' : ''));
+
+				playAnim('idle');
+
 				default:
 					var customPath:String = '';
 					var customPath2:String = '';
