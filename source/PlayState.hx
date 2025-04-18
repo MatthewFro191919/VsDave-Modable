@@ -524,6 +524,7 @@ class PlayState extends MusicBeatState
 
 	public static var shaggyVoice:Bool = false;
 	public static var lucarioVoice:Bool = false;
+	var isShaggy:Bool = false;
 	var isLucario:Bool = false;
 	var legs:FlxSprite;
 	var shaggyT:FlxTrail;
