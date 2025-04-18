@@ -523,7 +523,8 @@ class PlayState extends MusicBeatState
 	var noteWidth:Float = 0;
 
 	public static var shaggyVoice:Bool = false;
-	var isShaggy:Bool = false;
+	public static var lucarioVoice:Bool = false;
+	var isLucario:Bool = false;
 	var legs:FlxSprite;
 	var shaggyT:FlxTrail;
 	var legT:FlxTrail;
@@ -1354,6 +1355,8 @@ class PlayState extends MusicBeatState
 		dadStrums = new FlxTypedGroup<StrumNote>();
 
 		shaggyVoice = isShaggy && ['warmup', 'house', 'insanity', 'polygonized', 'blocked', 'corn-theft', 'maze', 'splitathon', 'shredder', 'greetings', 'interdimensional', 'rano', 'bonus-song', 'bot-trot', 'escape-from-california', 'adventure', 'mealie', 'indignancy', 'memory', 'roofs', 'supernovae', 'glitch', 'master', 'cheating', 'unfairness', 'kabunga', 'recursed', 'exploitation'].contains(SONG.song.toLowerCase());
+
+		lucarioVoice = isLucario && ['interdimensional'].contains(SONG.song.toLowerCase());
 
 		generateSong(SONG.song);
 
@@ -3064,6 +3067,11 @@ class PlayState extends MusicBeatState
 
 		if (SONG.needsVoices && FileSystem.exists(Paths.voicesPath(PlayState.SONG.song, localFunny == CharacterFunnyEffect.Tristan ? "-Tristan" : shaggyVoice ? "Shaggy" : ""))) {
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, localFunny == CharacterFunnyEffect.Tristan ? "-Tristan" : shaggyVoice ? "Shaggy" : ""));
+			}else {
+			vocals = new FlxSound();
+			}
+		if (SONG.needsVoices && FileSystem.exists(Paths.voicesPath(PlayState.SONG.song, localFunny == CharacterFunnyEffect.Tristan ? "-Tristan" : lucarioVoice ? "Lucario" : ""))) {
+			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, localFunny == CharacterFunnyEffect.Tristan ? "-Tristan" : lucarioVoice ? "Lucario" : ""));
 			}else {
 			vocals = new FlxSound();
 			}
@@ -4797,6 +4805,7 @@ class PlayState extends MusicBeatState
 									var heyAnimation:Bool = boyfriend.animation.getByName("hey") != null;
 									if (!daNote.isSustainNote || !FlxG.save.data.ogHold) {
 									boyfriend.playAnim(hitAnimation ? 'dodge' : (heyAnimation ? 'hey' : (isShaggy ? 'singRIGHT' : 'singUPmiss')), true);
+									boyfriend.playAnim(hitAnimation ? 'dodge' : (heyAnimation ? 'hey' : (isLucario ? 'singRIGHT' : 'singUPmiss')), true);
 									gf.playAnim('cheer', true);
 								}
 								} else {
@@ -6795,8 +6804,10 @@ if (oppM) {
 						var hitAnimation:Bool = boyfriend.animation.getByName("hit") != null;
 						if (!uhhbro || !FlxG.save.data.ogHold) {
 						boyfriend.playAnim(hitAnimation ? 'hit' : (isShaggy ? 'singDOWNmiss' : 'singRIGHTmiss'), true);
+						boyfriend.playAnim(hitAnimation ? 'hit' : (isLucario ? 'singDOWNmiss' : 'singRIGHTmiss'), true);
 						}
 						if (isShaggy) boyfriend.color = 0xFF000084;
+						if (isLucario) boyfriend.color = 0xFFFF0000;
 						FlxTween.cancelTweensOf(note.MyStrum);
 						note.MyStrum.alpha = 0.01;
 						var noteTween = FlxTween.tween(note.MyStrum, {alpha: 1}, 7, {ease: FlxEase.expoIn});
