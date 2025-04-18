@@ -19,10 +19,8 @@ import flixel.util.FlxTimer;
 import flixel.math.FlxMath;
 import flixel.util.FlxStringUtil;
 import flixel.FlxSprite;
-#if windows
 import lime.app.Application;
 import sys.FileSystem;
-#end
 import haxe.Json;
 import haxe.format.JsonParser;
 
