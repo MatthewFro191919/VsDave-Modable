@@ -1217,6 +1217,7 @@ class PlayState extends MusicBeatState
 		bfGroup.add(boyfriend);
 
 		isShaggy = boyfriend.curCharacter == 'shaggy' || boyfriend.curCharacter == 'supershaggy' || boyfriend.curCharacter == 'godshaggy' || boyfriend.curCharacter == 'redshaggy';
+		isLucario = boyfriend.curCharacter == 'lucario';
 		comboGroup = new FlxSpriteGroup();
 		add(comboGroup);
 		switch (stageCheck)
