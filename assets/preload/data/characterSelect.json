@@ -125,6 +125,19 @@
           ],
           "mainName": "shaggy",
           "mainnotems": [1, 1, 1, 1]
+        },
+        {
+          "newCharacter": [
+            {
+              "playername": "lucario",
+              "thecharactername": "Lucario",
+              "thenotems": [0, 3, 0, 0],
+              "notestyle": ""
+            }
+          ],
+          "mainName": "lucario",
+          "mainnotems": [0, 3, 0, 0]
+
         }
       ]
     }
