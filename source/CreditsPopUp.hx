@@ -66,6 +66,8 @@ class CreditsPopUp extends FlxSpriteGroup
 				songCreator = 'TH3R34LD34L';
 			case 'roofs':
 				songCreator = 'sibottle';
+			case 'backyard' | 'frenzy' | 'multidimensional':
+				songCreator = 'zlix';
 			default:
 				if (PlayState.SONG.songCreators != null) {
          songCreator = PlayState.SONG.songCreators;
@@ -125,6 +127,8 @@ class CreditsPopUp extends FlxSpriteGroup
 				headingPath = {path: 'songHeadings/3D-daveHeading', antiAliasing: false, iconOffset: 0};
 			case 'interdimensional':
 				headingPath = {path: 'songHeadings/interdimensionalHeading', antiAliasing: false, iconOffset: 0};
+			case 'backyard' | 'frenzy' | 'multidimensional':
+				headingPath = {path: 'songHeadings/daveHeading', antiAliasing: false, iconOffset: 0};
 			default:
 
 				if (!FileSystem.exists(TitleState.modFolder + '/images/songHeadings/' + PlayState.SONG.songHeadings + '.xml')) {
