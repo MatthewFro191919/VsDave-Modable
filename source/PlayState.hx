@@ -541,6 +541,12 @@ class PlayState extends MusicBeatState {
 	var doorClosed:Bool;
 	var doorChanging:Bool;
 
+	var bg1:FlxSprite;
+	var bg2:FlxSprite;
+	var bg3:FlxSprite;
+	var bg4:FlxSprite;
+	var bg5:FlxSprite;
+
 	var notbeingalittleCheater:Bool;
 
 	var banbiWindowNames:Array<String> = [
@@ -1803,6 +1809,22 @@ class PlayState extends MusicBeatState {
 		var bgZoom:Float = 0.7;
 		var stageName:String = '';
 		switch (bgName) {
+			case 'MultidimensionalBG':
+				addLayer('DayBG', 'backgrounds/shared/sky', -608, -500, 0.1, 0.1);
+				addLayer('flatgrass', 'backgrounds/farm/gm_flatgrass', -55, -150, 0.3, 0.3, 0.3);
+				addLayer('hills', 'backgrounds/farm/orangey hills', -220, 5, 0.3, 0.3);
+				addLayer('farm', 'backgrounds/farm/funfarmhouse', 69, 85, 0.6, 0.6);
+				addLayer('ground', 'backgrounds/farm/grass lands', -480, 480, 1, 1);
+				addLayer('corn1', 'backgrounds/farm/cornFence', -280, 180, 1, 1);
+				addLayer('corn2', 'backgrounds/farm/cornFence2', 1220, 200, 1, 1);
+				addLayer('sign', 'backgrounds/farm/Sign', 125, 340, 1, 1);
+				addLayer('cornbag', 'backgrounds/farm/cornbag', 1320, 550, 1, 1);
+
+				bg1 = createEffectBG('backgrounds/void/RedSkyBG', -800, -500);
+				bg2 = createEffectBG('backgrounds/void/multidimentional/Trippy', -800, -500, false);
+				bg3 = createEffectBG('backgrounds/void/multidimentional/PIlls', -800, -500, false);
+				bg4 = createEffectBG('backgrounds/void/multidimentional/Tubed', -800, -500, false);
+				bg5 = createEffectBG('backgrounds/void/multidimentional/DarkBlue', -800, -500, false);
 			case 'house' | 'house-night' | 'house-sunset':
 				bgZoom = 0.8;
 
@@ -6890,6 +6912,30 @@ class PlayState extends MusicBeatState {
 		addRecursedUI();
 	}
 
+	function addLayer(name:String, path:String, x:Float, y:Float, scrollX:Float, scrollY:Float, scale:Float = 1):Void {
+		var layer = new FlxSprite(x, y).loadGraphic(Paths.image(path));
+		layer.scrollFactor.set(scrollX, scrollY);
+		layer.setGraphicSize(Std.int(layer.width * scale));
+		layer.updateHitbox();
+		add(layer);
+	}
+
+	function createEffectBG(path:String, x:Float, y:Float, visible:Bool = true):FlxSprite {
+		var bg = new FlxSprite(x, y).loadGraphic(Paths.image(path));
+		bg.scrollFactor.set(1, 1);
+		bg.setGraphicSize(Std.int(bg.width * 1.3));
+		bg.updateHitbox();
+		bg.visible = visible;
+		add(bg);
+	        // below code assumes shaders are always enabled which is bad 
+		var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
+		testshader.waveAmplitude = 0.1;
+		testshader.waveFrequency = 5;
+		testshader.waveSpeed = 2;
+		bg.shader = testshader.shader;
+		return bg;
+	}
+
 	function addRecursedUI() {
 		timeGiven = Math.round(new FlxRandom().float(25, 35));
 		timeLeft = timeGiven;
@@ -7384,6 +7430,22 @@ class PlayState extends MusicBeatState {
 					case 4799 | 5823 | 6079 | 8383:
 						hasTriggeredDumbshit = false;
 						updatevels = false;
+				}
+
+			case 'multidimensional':
+				switch (curStep) {
+					case 1024:
+						flashAndSwap(bg1, bg2);
+					case 1536:
+						flashAndSwap(bg2, bg3);
+					case 2048:
+						flashAndSwap(bg3, bg4);
+					case 2560:
+						flashAndSwap(bg4, bg5);
+					case 2943:
+						flashAndSwap(bg5, bg2);
+					case 3224:
+						flashAndSwap(bg2, null);
 				}
 
 			case 'insanity':
@@ -9360,6 +9422,14 @@ class PlayState extends MusicBeatState {
 			}
 			switchSide = !switchSide;
 		}
+	}
+
+	function flashAndSwap(hide:FlxSprite, show:FlxSprite):Void {
+		FlxG.camera.flash(FlxColor.WHITE, 1);
+		if (hide != null)
+			hide.visible = false;
+		if (show != null)
+			show.visible = true;
 	}
 
 	function switchNotePositions(order:Array<Int>) {
