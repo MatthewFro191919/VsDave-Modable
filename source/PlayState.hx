@@ -6921,18 +6921,14 @@ class PlayState extends MusicBeatState {
 	}
 
 	function createEffectBG(path:String, x:Float, y:Float, visible:Bool = true):FlxSprite {
-		var bg = new FlxSprite(x, y).loadGraphic(Paths.image(path));
-		bg.scrollFactor.set(1, 1);
+
+		var bg:BGSprite = new BGSprite('void', x, y, '', null, 1, 1, false, true);
+		sprites.add(bg);
+		voidShader(bg);	
 		bg.setGraphicSize(Std.int(bg.width * 1.3));
 		bg.updateHitbox();
 		bg.visible = visible;
 		add(bg);
-	        // below code assumes shaders are always enabled which is bad 
-		var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
-		testshader.waveAmplitude = 0.1;
-		testshader.waveFrequency = 5;
-		testshader.waveSpeed = 2;
-		bg.shader = testshader.shader;
 		return bg;
 	}
 
