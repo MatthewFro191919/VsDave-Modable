@@ -9419,7 +9419,7 @@ class PlayState extends MusicBeatState {
 		}
 	}
 
-	function flashAndSwap(hide:FlxSprite, show:FlxSprite):Void {
+	function flashAndSwap(hide:BGSprite, show:BGSprite):Void {
 		FlxG.camera.flash(FlxColor.WHITE, 1);
 		if (hide != null)
 			hide.visible = false;
