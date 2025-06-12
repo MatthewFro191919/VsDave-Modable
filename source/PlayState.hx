@@ -541,11 +541,11 @@ class PlayState extends MusicBeatState {
 	var doorClosed:Bool;
 	var doorChanging:Bool;
 
-	var bg1:FlxSprite;
-	var bg2:FlxSprite;
-	var bg3:FlxSprite;
-	var bg4:FlxSprite;
-	var bg5:FlxSprite;
+	var bg1:BGSprite;
+	var bg2:BGSprite;
+	var bg3:BGSprite;
+	var bg4:BGSprite;
+	var bg5:BGSprite;
 
 	var notbeingalittleCheater:Bool;
 
@@ -6920,8 +6920,7 @@ class PlayState extends MusicBeatState {
 		add(layer);
 	}
 
-	function createEffectBG(path:String, x:Float, y:Float, visible:Bool = true):FlxSprite {
-
+	function createEffectBG(path:String, x:Float, y:Float, visible:Bool = true):BGSprite {
 		var bg:BGSprite = new BGSprite('void', x, y, '', null, 1, 1, false, true);
 		sprites.add(bg);
 		voidShader(bg);	
