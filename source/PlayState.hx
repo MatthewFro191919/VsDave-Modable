@@ -1810,6 +1810,46 @@ class PlayState extends MusicBeatState {
 		var stageName:String = '';
 		switch (bgName) {
 			case 'MultidimensionalBG':
+				bg1 = new BGSprite('void', -800, -500, 'backgrounds/void/RedSkyBG', null, 1, 1, false, true);
+				sprites.add(bg1);
+				voidShader(bg1);	
+				bg1.setGraphicSize(Std.int(bg1.width * 1.3));
+				bg1.updateHitbox();
+				bg1.visible = true;
+				add(bg1);
+
+				bg2 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/Trippy', null, 1, 1, false, true);
+				sprites.add(bg2);
+				voidShader(bg2);	
+				bg2.setGraphicSize(Std.int(bg2.width * 1.3));
+				bg2.updateHitbox();
+				bg2.visible = false;
+				add(bg2);
+
+				bg3 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/PIlls', null, 1, 1, false, true);
+				sprites.add(bg3);
+				voidShader(bg3);	
+				bg3.setGraphicSize(Std.int(bg3.width * 1.3));
+				bg3.updateHitbox();
+				bg3.visible = false;
+				add(bg3);
+
+				bg4 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/Tubed', null, 1, 1, false, true);
+				sprites.add(bg4);
+				voidShader(bg4);	
+				bg4.setGraphicSize(Std.int(bg4.width * 1.3));
+				bg4.updateHitbox();
+				bg4.visible = false;
+				add(bg4);
+
+				bg5 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/DarkBlue', null, 1, 1, false, true);
+				sprites.add(bg5);
+				voidShader(bg5);	
+				bg5.setGraphicSize(Std.int(bg5.width * 1.3));
+				bg5.updateHitbox();
+				bg5.visible = false;
+				add(bg5);
+
 				var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('backgrounds/shared/sky'), null, 0.6, 0.6);
 				sprites.add(bg);
 				add(bg);
@@ -1864,46 +1904,6 @@ class PlayState extends MusicBeatState {
 					add(sign);
 					sprites.add(sign);
 				}
-
-				bg1 = new BGSprite('void', -800, -500, 'backgrounds/void/RedSkyBG', null, 1, 1, false, true);
-				sprites.add(bg1);
-				voidShader(bg1);	
-				bg1.setGraphicSize(Std.int(bg1.width * 1.3));
-				bg1.updateHitbox();
-				bg1.visible = true;
-				add(bg1);
-
-				bg2 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/Trippy', null, 1, 1, false, true);
-				sprites.add(bg2);
-				voidShader(bg2);	
-				bg2.setGraphicSize(Std.int(bg2.width * 1.3));
-				bg2.updateHitbox();
-				bg2.visible = false;
-				add(bg2);
-
-				bg3 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/PIlls', null, 1, 1, false, true);
-				sprites.add(bg3);
-				voidShader(bg3);	
-				bg3.setGraphicSize(Std.int(bg3.width * 1.3));
-				bg3.updateHitbox();
-				bg3.visible = false;
-				add(bg3);
-
-				bg4 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/Tubed', null, 1, 1, false, true);
-				sprites.add(bg4);
-				voidShader(bg4);	
-				bg4.setGraphicSize(Std.int(bg4.width * 1.3));
-				bg4.updateHitbox();
-				bg4.visible = false;
-				add(bg4);
-
-				bg5 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/DarkBlue', null, 1, 1, false, true);
-				sprites.add(bg5);
-				voidShader(bg5);	
-				bg5.setGraphicSize(Std.int(bg5.width * 1.3));
-				bg5.updateHitbox();
-				bg5.visible = false;
-				add(bg5);
 			case 'house' | 'house-night' | 'house-sunset':
 				bgZoom = 0.8;
 
