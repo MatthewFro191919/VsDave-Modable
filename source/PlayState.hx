@@ -2678,37 +2678,6 @@ class PlayState extends MusicBeatState {
 		}
 	}
 
-	function currentMultidimensionBG(type:String) {
-		if (FlxG.save.data.stage && !FlxG.save.data.lowQ) {
-			for (sprite in backgroundSprites) {
-				backgroundSprites.remove(sprite);
-				remove(sprite);
-			}
-			MultidimensionBG = new BGSprite('void', -600, -200, '', null, 1, 1, false, true);
-			backgroundSprites.add(interdimensionBG);
-			add(interdimensionBG);
-			switch (type) {
-				case 'interdimension-void':
-					interdimensionBG.loadGraphic(Paths.image('backgrounds/void/interdimensions/interdimensionVoid'));
-					interdimensionBG.setPosition(-700, -350);
-					interdimensionBG.setGraphicSize(Std.int(interdimensionBG.width * 1.75));
-				case 'spike-void':
-					interdimensionBG.loadGraphic(Paths.image('backgrounds/void/interdimensions/spike'));
-					interdimensionBG.setPosition(-200, 0);
-					interdimensionBG.setGraphicSize(Std.int(interdimensionBG.width * 3));
-				case 'darkSpace':
-					interdimensionBG.loadGraphic(Paths.image('backgrounds/void/interdimensions/darkSpace'));
-					interdimensionBG.setPosition(-200, 0);
-					interdimensionBG.setGraphicSize(Std.int(interdimensionBG.width * 2.75));
-				case 'hexagon-void':
-					interdimensionBG.loadGraphic(Paths.image('backgrounds/void/interdimensions/hexagon'));
-					interdimensionBG.setPosition(-200, 0);
-					interdimensionBG.setGraphicSize(Std.int(interdimensionBG.width * 3));
-			}
-			voidShader(interdimensionBG);
-			currentMultidimensionBG = type;
-		}
-	}
 	function startCountdown():Void {
 		inCutscene = false;
 
