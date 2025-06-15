@@ -1810,21 +1810,100 @@ class PlayState extends MusicBeatState {
 		var stageName:String = '';
 		switch (bgName) {
 			case 'MultidimensionalBG':
-				addLayer('DayBG', 'backgrounds/shared/sky', -608, -500, 0.1, 0.1);
-				addLayer('flatgrass', 'backgrounds/farm/gm_flatgrass', -55, -150, 0.3, 0.3, 0.3);
-				addLayer('hills', 'backgrounds/farm/orangey hills', -220, 5, 0.3, 0.3);
-				addLayer('farm', 'backgrounds/farm/funfarmhouse', 69, 85, 0.6, 0.6);
-				addLayer('ground', 'backgrounds/farm/grass lands', -480, 480, 1, 1);
-				addLayer('corn1', 'backgrounds/farm/cornFence', -280, 180, 1, 1);
-				addLayer('corn2', 'backgrounds/farm/cornFence2', 1220, 200, 1, 1);
-				addLayer('sign', 'backgrounds/farm/Sign', 125, 340, 1, 1);
-				addLayer('cornbag', 'backgrounds/farm/cornbag', 1320, 550, 1, 1);
+				var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('backgrounds/shared/sky'), null, 0.6, 0.6);
+				sprites.add(bg);
+				add(bg);
+				
+				var flatgrass:BGSprite = new BGSprite('flatgrass', 350, 75, Paths.image('backgrounds/farm/gm_flatgrass'), null, 0.65, 0.65);
+				flatgrass.setGraphicSize(Std.int(flatgrass.width * 0.34));
+				flatgrass.updateHitbox();
+				sprites.add(flatgrass);
 
-				bg1 = createEffectBG('backgrounds/void/RedSkyBG', -800, -500);
-				bg2 = createEffectBG('backgrounds/void/multidimentional/Trippy', -800, -500, false);
-				bg3 = createEffectBG('backgrounds/void/multidimentional/PIlls', -800, -500, false);
-				bg4 = createEffectBG('backgrounds/void/multidimentional/Tubed', -800, -500, false);
-				bg5 = createEffectBG('backgrounds/void/multidimentional/DarkBlue', -800, -500, false);
+				var hills:BGSprite = new BGSprite('hills', -173, 100, Paths.image('backgrounds/farm/orangey hills'), null, 0.65, 0.65);
+				sprites.add(hills);
+
+				var farmHouse:BGSprite = new BGSprite('farmHouse', 100, 125, Paths.image('backgrounds/farm/funfarmhouse', 'shared'), null, 0.7, 0.7);
+				farmHouse.setGraphicSize(Std.int(farmHouse.width * 0.9));
+				farmHouse.updateHitbox();
+				sprites.add(farmHouse);
+
+				var grassLand:BGSprite = new BGSprite('grassLand', -600, 500, Paths.image('backgrounds/farm/grass lands', 'shared'), null);
+				sprites.add(grassLand);
+
+				var cornFence:BGSprite = new BGSprite('cornFence', -400, 200, Paths.image('backgrounds/farm/cornFence', 'shared'), null);
+
+				var cornFence2:BGSprite = new BGSprite('cornFence2', 1100, 200, Paths.image('backgrounds/farm/cornFence2', 'shared'), null);
+
+				var bagType = FlxG.random.int(0, 1000) == 0 ? 'popeye' : 'cornbag';
+				var cornBag:BGSprite = new BGSprite('cornFence2', 1200, 550, Paths.image('backgrounds/farm/$bagType', 'shared'), null);
+
+				var sign:BGSprite = new BGSprite('sign', 0, 350, Paths.image('backgrounds/farm/sign', 'shared'), null);
+
+				var variantColor:FlxColor = getBackgroundColor(stageName);
+
+				flatgrass.color = variantColor;
+				hills.color = variantColor;
+				farmHouse.color = variantColor;
+				grassLand.color = variantColor;
+				cornFence.color = variantColor;
+				cornFence2.color = variantColor;
+				cornBag.color = variantColor;
+				sign.color = variantColor;
+
+				add(flatgrass);
+				add(hills);
+				add(farmHouse);
+				add(grassLand);
+				if (!FlxG.save.data.lowQ) {
+					add(cornFence);
+					sprites.add(cornFence);
+					add(cornFence2);
+					sprites.add(cornFence2);
+					add(cornBag);
+					sprites.add(cornBag);
+					add(sign);
+					sprites.add(sign);
+				}
+
+				bg1 = new BGSprite('void', -800, -500, 'backgrounds/void/RedSkyBG', null, 1, 1, false, true);
+				sprites.add(bg1);
+				voidShader(bg1);	
+				bg1.setGraphicSize(Std.int(bg1.width * 1.3));
+				bg1.updateHitbox();
+				bg1.visible = true;
+				add(bg1);
+
+				bg2 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/Trippy', null, 1, 1, false, true);
+				sprites.add(bg2);
+				voidShader(bg2);	
+				bg2.setGraphicSize(Std.int(bg2.width * 1.3));
+				bg2.updateHitbox();
+				bg2.visible = false;
+				add(bg2);
+
+				bg3 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/PIlls', null, 1, 1, false, true);
+				sprites.add(bg3);
+				voidShader(bg3);	
+				bg3.setGraphicSize(Std.int(bg3.width * 1.3));
+				bg3.updateHitbox();
+				bg3.visible = false;
+				add(bg3);
+
+				bg4 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/Tubed', null, 1, 1, false, true);
+				sprites.add(bg4);
+				voidShader(bg4);	
+				bg4.setGraphicSize(Std.int(bg4.width * 1.3));
+				bg4.updateHitbox();
+				bg4.visible = false;
+				add(bg4);
+
+				bg5 = new BGSprite('void', -800, -500, 'backgrounds/void/multidimentional/DarkBlue', null, 1, 1, false, true);
+				sprites.add(bg5);
+				voidShader(bg5);	
+				bg5.setGraphicSize(Std.int(bg5.width * 1.3));
+				bg5.updateHitbox();
+				bg5.visible = false;
+				add(bg5);
 			case 'house' | 'house-night' | 'house-sunset':
 				bgZoom = 0.8;
 
@@ -2599,6 +2678,37 @@ class PlayState extends MusicBeatState {
 		}
 	}
 
+	function currentMultidimensionBG(type:String) {
+		if (FlxG.save.data.stage && !FlxG.save.data.lowQ) {
+			for (sprite in backgroundSprites) {
+				backgroundSprites.remove(sprite);
+				remove(sprite);
+			}
+			MultidimensionBG = new BGSprite('void', -600, -200, '', null, 1, 1, false, true);
+			backgroundSprites.add(interdimensionBG);
+			add(interdimensionBG);
+			switch (type) {
+				case 'interdimension-void':
+					interdimensionBG.loadGraphic(Paths.image('backgrounds/void/interdimensions/interdimensionVoid'));
+					interdimensionBG.setPosition(-700, -350);
+					interdimensionBG.setGraphicSize(Std.int(interdimensionBG.width * 1.75));
+				case 'spike-void':
+					interdimensionBG.loadGraphic(Paths.image('backgrounds/void/interdimensions/spike'));
+					interdimensionBG.setPosition(-200, 0);
+					interdimensionBG.setGraphicSize(Std.int(interdimensionBG.width * 3));
+				case 'darkSpace':
+					interdimensionBG.loadGraphic(Paths.image('backgrounds/void/interdimensions/darkSpace'));
+					interdimensionBG.setPosition(-200, 0);
+					interdimensionBG.setGraphicSize(Std.int(interdimensionBG.width * 2.75));
+				case 'hexagon-void':
+					interdimensionBG.loadGraphic(Paths.image('backgrounds/void/interdimensions/hexagon'));
+					interdimensionBG.setPosition(-200, 0);
+					interdimensionBG.setGraphicSize(Std.int(interdimensionBG.width * 3));
+			}
+			voidShader(interdimensionBG);
+			currentMultidimensionBG = type;
+		}
+	}
 	function startCountdown():Void {
 		inCutscene = false;
 
@@ -7430,17 +7540,26 @@ class PlayState extends MusicBeatState {
 			case 'multidimensional':
 				switch (curStep) {
 					case 1024:
-						flashAndSwap(bg1, bg2);
+				                bg1.visible = false;
+			                 	bg2.visible = true;
 					case 1536:
-						flashAndSwap(bg2, bg3);
+				                bg2.visible = false;
+			                 	bg3.visible = true;
 					case 2048:
-						flashAndSwap(bg3, bg4);
+				                bg3.visible = false;
+			                 	bg4.visible = true;
 					case 2560:
-						flashAndSwap(bg4, bg5);
+				                bg4.visible = false;
+			                 	bg5.visible = true;
 					case 2943:
-						flashAndSwap(bg5, bg2);
+				                bg5.visible = false;
+			                 	bg2.visible = true;
 					case 3224:
-						flashAndSwap(bg2, null);
+				                bg1.visible = false;
+				                bg2.visible = false;
+				                bg3.visible = false;
+				                bg4.visible = false;
+				                bg5.visible = false;
 				}
 
 			case 'insanity':
