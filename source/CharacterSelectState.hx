@@ -178,10 +178,12 @@ class CharacterSelectState extends MusicBeatState
         json = cast Json.parse(rawJson);
 		rawJsonCustom = File.getContent(('mods/global/characterSelect.json'));
         jsonCustom = cast Json.parse(rawJsonCustom);
+		#if windows
 		if (FileSystem.exists(TitleState.modFolder + '/data/characterSelect.json')) {
 		rawJsonCustom2 = File.getContent((TitleState.modFolder + '/data/characterSelect.json'));
         jsonCustom2 = cast Json.parse(rawJsonCustom2);
 		}
+		#end
 
 		var characterInSelectArray:Array<CharacterInSelect> = [];
 trace(!TitleState.baseGameDeleted.deletedCharacterImages);
@@ -223,7 +225,8 @@ trace(!TitleState.baseGameDeleted.deletedCharacterImages);
 			
 			
 			characters.push(new CharacterInSelect('shaggy', [1, 1, 1, 1], newCharacterFormsshaggy));
-	}
+	}	
+        #if windows
 		if (FileSystem.exists('mods/global/characterSelect.json')) {
 		for (character in jsonCustom.characters) { // For Globle Characters
 			var mainName:String = character.mainName;
@@ -254,6 +257,7 @@ trace(!TitleState.baseGameDeleted.deletedCharacterImages);
 			unlockCharacter(mainName);
 		}
 	}
+        #end
 
 		//trace(characters);
 		Conductor.changeBPM(110);
