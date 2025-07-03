@@ -17220,7 +17220,6 @@ class PlayState extends MusicBeatState {
 						add(farmHouse);
 						add(grassLand);
 						remove(bg1);
-						switchDad('dave', dad.getPosition(), false);
 				}
 
 			case 'insanity':
