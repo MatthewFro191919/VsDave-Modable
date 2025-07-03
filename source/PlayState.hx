@@ -1816,7 +1816,6 @@ class PlayState extends MusicBeatState {
 				voidShader(bg1);	
 				bg1.setGraphicSize(Std.int(bg1.width * 1.3));
 				bg1.updateHitbox();
-				bg1.visible = true;
 				add(bg1);
 			case 'house' | 'house-night' | 'house-sunset':
 				bgZoom = 0.8;
