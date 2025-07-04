@@ -1810,7 +1810,8 @@ class PlayState extends MusicBeatState {
 		var stageName:String = '';
 		switch (bgName) {
 			case 'MultidimensionalBG':
-
+				bgZoom = 0.8;
+				stageName = 'MultidimensionalBG';
 				bg1 = new BGSprite('void', -800, -500, 'backgrounds/void/RedSkyBG', null, 1, 1, false, true);
 				sprites.add(bg1);
 				voidShader(bg1);	
